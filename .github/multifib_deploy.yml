@@ -1,6 +1,11 @@
 
 name: Deploy multifib on EBS AWS
 
+on:
+  push:
+    branch:
+      -master
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -19,7 +24,7 @@ jobs:
             image: yebigun/zadanie2:fib-worker
           - dockerfile: ./Dockerfile
             context: nginx
-            image: yebigun/zadanie2:fib-router  
+            image: yebigun/zadanie2:fib-nginx  
     
     steps:
 
@@ -61,8 +66,8 @@ jobs:
       with:
         aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        application_name: mwmultifib.
-        environment_name: Mwmultifib-env
+        application_name: GZmultifib.
+        environment_name: GZmultifib-env
         version_label: zad2b
         region: us-east-1
         deployment_package: deploy.zip
